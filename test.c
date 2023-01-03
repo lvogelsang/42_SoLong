@@ -9,7 +9,7 @@ int	main(void)
 	mlx_win = mlx_new_window(mlx, 100, 100, "Hello world!");
 	mlx_loop(mlx);
 }
-*/
+
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -40,4 +40,4 @@ int	main(void)
 	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
-}
+}*/

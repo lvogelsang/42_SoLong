@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 10:33:22 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/03 13:07:01 by lvogelsa         ###   ########.fr       */
+/*   Created: 2023/01/03 12:52:16 by lvogelsa          #+#    #+#             */
+/*   Updated: 2023/01/03 13:01:32 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+int	ft_strrncmp(const char *s1, const char *s2, size_t n)
 {
-	char	**map;
-	int	fd;
-	t_map	map_attributes;
+	size_t	i;
+	size_t	j;
 
-	fd = primitive_errors(argc, argv);
-	if (fd == -1)
-		return (0); 
-	map_attributes = init_map_attributes();
-	map = check_map(fd, map_attributes);
-//	if (map == NULL)
-//		return (0);
-//	init_game(map, map_attributes);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	while ((s1[i - 1] || s2[j - 1]) && n > 0)
+	{
+		if (s1[i - 1] == s2[j - 1])
+		{
+			i--;
+			j--;
+			n--;
+		}
+		else
+			return (s1[i - 1] - s2[j - 1]);
+	}
 	return (0);
 }
