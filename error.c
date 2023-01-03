@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:41:01 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/03 12:58:45 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:05:02 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	primitive_errors(int argc, char **argv)
 	return (fd);
 }
 	
-int	error_message(char *message, char **map)
+int	error_message(char *message, char *map)
 {
 	if (map)
 		free(map);

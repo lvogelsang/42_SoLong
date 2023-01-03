@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:07:08 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/03 13:43:32 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:05:30 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	**game_map(int fd, t_map map_attributes)
 	map_str = NULL;
 	map_error = init_map_error();
 	read_map(fd, map_attributes, map_str, map_error);
+	...
 }
 
 void	read_map(int fd, t_map map_attributes, char *map_str, t_error map_error)
