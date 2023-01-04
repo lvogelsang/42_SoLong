@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:33:22 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/03 13:07:01 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:35:01 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		return (0); 
 	map_attributes = init_map_attributes();
-	map = check_map(fd, map_attributes);
-//	if (map == NULL)
-//		return (0);
+	map = check_map(fd, &map_attributes);
+	if (map == NULL)
+		return (0);
 //	init_game(map, map_attributes);
 	return (0);
 }
