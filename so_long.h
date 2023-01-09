@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 10:51:03 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:36:25 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_error
 	int	closed;
 	int	chars;
 	int	path;
+	int	memory;
 }		t_error;
 
 // SO_LONG.C
@@ -45,7 +46,7 @@ int	error_message(char *message, char *map_str);
 int	primitive_errors(int argc, char **argv);
 t_error	init_map_error(void);
 void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int first_or_last);
-void	check_map_valid_path(char *map_str, t_error *map_error);
+void	*check_map_valid_path(char *map_str, t_map *map_attributes, t_error *map_error);
 void	check_map_valid_path_two(char **map, t_error *map_error);
 int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str);
 
@@ -53,7 +54,7 @@ int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str);
 
 t_map init_map_attributes(void);
 char	**check_map(int fd, t_map *map_attributes);
-void	read_map(int fd, t_map *map_attributes, char *map_str, t_error *map_error);
+void	*read_map(int fd, t_map *map_attributes, char **map_str, t_error *map_error);
 void	get_map_attributes(char *line, t_map *map_attributes, t_error *map_error, int first_or_last);
 
 // UTILS.C

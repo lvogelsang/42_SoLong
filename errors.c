@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:12:48 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 10:44:46 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:39:48 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_error	init_map_error(void)
 	map_error.closed = 0;
 	map_error.chars = 0;
 	map_error.path = 0;
+	map_error.memory = 0;
 	return (map_error);
 }
 //
@@ -66,32 +67,37 @@ void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int
 	}
 }
 
-void	check_map_valid_path(char *map_str, t_error *map_error)
+void	*check_map_valid_path(char *map_str, t_map *map_attributes, t_error *map_error)
 {
 	char 	**map;
 	int	x;
 	int	y;
-
+	
 	map = ft_split(map_str, '\n');
+	if (map == NULL)
+	{
+		map_error->memory = 1;
+		return (NULL);
+	}
 	x = 1;
-	while (map[x + 1])
+	while (x < map_attributes->col - 1)
 	{
 		y = 1;
-		while (map[x + 1][y + 1])
+		while (y < map_attributes->row - 1)
 		{
-			if (map[x + 1][y] == 'P' || map[x - 1][y] == 'P' || \
-				map[x][y + 1] == 'P' || map[x][y - 1] == 'P')
+			if (map[y][x + 1] == 'P' || map[y][x - 1] == 'P' \
+				|| map[y + 1][x] == 'P' || map[y - 1][x] == 'P')
 			{
-				if (map[x][y] == '0' || map[x][y] == 'C')
+				if (map[y][x] == '0' || map[y][x] == 'C')
 				{
-					map[x][y] = 'P';
-					x = 1;
+					map[y][x] = 'P';
+					x = 0;
 					break ;
 				}
-				if (map[x][y] == 'E')
+				if (map[y][x] == 'E')
 				{
-					map[x][y] = '1';
-					x = 1;
+					map[y][x] = '1';
+					x = 0;
 					break ;
 				}
 			}
@@ -101,6 +107,7 @@ void	check_map_valid_path(char *map_str, t_error *map_error)
 	}
 	check_map_valid_path_two(map, map_error);
 	free (map);
+	return (NULL);
 }
 
 void	check_map_valid_path_two(char **map, t_error *map_error)
@@ -140,5 +147,7 @@ int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str)
 		return (error_message("Invalid number of players!", map_str));
 	if (map_error->path)
 		return (error_message("The map doesn't contain a valid path!", map_str));
+	if (map_error->memory)
+		return (error_message("Memory allocation problems!", map_str));
 	return (0);
 }
