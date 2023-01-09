@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 15:22:18 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:00:50 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,13 @@ typedef struct	s_game
 	void	*id;
 	void	*window;
 	t_sprites	sprites;
+	int	frames;
+	int	collect;
 	char	**map;
 	t_map	*map_attributes;
 	int	player_row;
 	int	player_col;
+	int	panic;
 	int	move;
 	int	result;
 	int	steps;
@@ -80,6 +83,8 @@ typedef struct	s_game
 void	init_game(char **map, t_map *map_attributes);
 int	key_hook(int key, t_game *game);
 int	end_game(t_game *game);
+void	check_game(t_game *game);
+int	update_game(t_game *game);
 
 // ERRORS.C
 
