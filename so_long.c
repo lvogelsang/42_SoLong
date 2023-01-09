@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 16:05:12 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:28:56 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_game(char **map, t_map *map_attributes)
 
 	game.id = mlx_init();
 	game.window = mlx_new_window(game.id, map_attributes->col * SPRITE_SIZE, \
-	map_attributes->row * SPRITE_SIZE + 80, "HARRY POTTER - The Game that took so long");
+	map_attributes->row * SPRITE_SIZE + 64, "HARRY POTTER - SO_LONG");
 	game.sprites = init_sprites(&game);
 	game.frames = 1;
 	game.collect = map_attributes->collect;
@@ -52,8 +52,6 @@ int	update_game(t_game *game)
 {
 	game->frames++;
 	check_game(game);
-//	if (game->move)
-//	{
 	//	update_score(game);
 	display_map(game, game->map, game->map_attributes);
 	return (1);
@@ -63,7 +61,7 @@ void	check_game(t_game *game)
 {
 	if (game->result == 1)
 	{
-		ft_printf("Mischief managed - You won!\n");
+		ft_printf("Mischief managed! - You won!\n");
 		end_game(game);
 	}
 	if (game->result == -1)

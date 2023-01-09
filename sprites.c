@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:56 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 16:02:36 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:26:03 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	display_map(t_game *game, char **map, t_map *map_attributes)
 			if (map[row][col] == 'P')
 				display_player(game, row, col);
 			//Incorporate panic mode here?
-			if (map[row][col] == 'Y' && ((!(game->panic) || (game->panic && !(game->frames % 2)))))
+			if (map[row][col] == 'Y' && ((!(game->panic) || (game->panic && game->frames % 2))))
 				mlx_put_image_to_window(game->id, game->window, game->sprites.enemy, col * SPRITE_SIZE, row * SPRITE_SIZE);
-			if (map[row][col] == 'Y' && game->panic && game->frames % 2)
+			if (map[row][col] == 'Y' && game->panic && !(game->frames % 2))
 				mlx_put_image_to_window(game->id, game->window, game->sprites.enemypanic, col * SPRITE_SIZE, row * SPRITE_SIZE);
 			if (map[row][col] == 'C')
 				display_collectible(game, row, col);
