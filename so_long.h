@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 12:36:25 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:15:43 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "./libft/libft.h"
 
 # define MAP_CHARS	"01CEPY\n"
+# define SPRITE_SIZE	64
 
 typedef struct	s_map
 {
@@ -38,7 +39,34 @@ typedef struct	s_error
 	int	memory;
 }		t_error;
 
+typedef struct	s_sprites
+{
+	void	*wall;
+	void	*floor;
+	void	*exit;
+	void	*player;
+	void	*enemy;
+	void	*enemypanic;
+	void	*c_one;
+	void	*c_two;
+	void	*c_three;
+	void	*c_four;
+	void	*c_five;
+	void	*c_six;
+}		t_sprites;
+
+typedef struct	s_game
+{
+	void	*id;
+	void	*window;
+	t_sprites	sprites;
+	int	player_row;
+	int	player_col;
+}		t_game;
+
 // SO_LONG.C
+
+void	init_game(char **map, t_map *map_attributes);
 
 // ERRORS.C
 
@@ -56,6 +84,13 @@ t_map init_map_attributes(void);
 char	**check_map(int fd, t_map *map_attributes);
 void	*read_map(int fd, t_map *map_attributes, char **map_str, t_error *map_error);
 void	get_map_attributes(char *line, t_map *map_attributes, t_error *map_error, int first_or_last);
+
+// SPRITES.C
+
+t_sprites	init_sprites(t_game *game);
+void	display_map(t_game *game, char **map, t_map *map_attributes);
+void	display_player(t_game *game, int row, int col);
+void	display_collectible(t_game *game, int row, int col);
 
 // UTILS.C
 
