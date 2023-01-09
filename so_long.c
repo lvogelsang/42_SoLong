@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 14:15:31 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:24:39 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,43 @@ void	init_game(char **map, t_map *map_attributes)
 	game.window = mlx_new_window(game.id, map_attributes->col * SPRITE_SIZE, \
 	map_attributes->row * SPRITE_SIZE + 80, "HARRY POTTER - The Game that took so long");
 	game.sprites = init_sprites(&game);
-	display_map(&game, map, map_attributes);
+	game.map = map;
+	game.map_attributes = map_attributes;
+	display_map(&game, game.map, game.map_attributes);
+	mlx_key_hook(game.window, key_hook, &game);
+	mlx_hook(game.window, 17, 0, end_game, (void *)&game);
 	mlx_loop(game.id);
 }
 
+int	key_hook(int key, t_game *game)
+{
+	int	move;
+
+	if (key == KEY_ESC)
+		end_game(game);
+	if (key == KEY_UP)
+		move = move_player(game, game->player_row - 1, game->player_col);
+	if (key == KEY_DOWN)
+		move = move_player(game, game->player_row + 1, game->player_col);
+	if (key == KEY_RIGHT)
+		move = move_player(game, game->player_row, game->player_col + 1);
+	if (key == KEY_LEFT)
+		move = move_player(game, game->player_row, game->player_col - 1);
+	game->move = move;
+	// move this somewhere else later?
+	if (game->move)
+		display_map(game, game->map, game->map_attributes);
+	return (1);
+}
+
+int	end_game(t_game *game)
+{
+	// free sprites? Consider other things that need to be done!!!
+	mlx_clear_window(game->id, game->window);
+	mlx_destroy_window(game->id, game->window);
+	free (game->id);
+	free (game->map);
+	exit (0);
+	return (0);
+}
 

@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 14:15:43 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:22:18 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 
 # define MAP_CHARS	"01CEPY\n"
 # define SPRITE_SIZE	64
+
+# define KEY_ESC	53
+# define KEY_UP		126
+# define KEY_DOWN	125
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 typedef struct	s_map
 {
@@ -60,13 +66,20 @@ typedef struct	s_game
 	void	*id;
 	void	*window;
 	t_sprites	sprites;
+	char	**map;
+	t_map	*map_attributes;
 	int	player_row;
 	int	player_col;
+	int	move;
+	int	result;
+	int	steps;
 }		t_game;
 
 // SO_LONG.C
 
 void	init_game(char **map, t_map *map_attributes);
+int	key_hook(int key, t_game *game);
+int	end_game(t_game *game);
 
 // ERRORS.C
 
@@ -91,6 +104,10 @@ t_sprites	init_sprites(t_game *game);
 void	display_map(t_game *game, char **map, t_map *map_attributes);
 void	display_player(t_game *game, int row, int col);
 void	display_collectible(t_game *game, int row, int col);
+
+// PLAYER.C
+
+int	move_player(t_game *game, int row, int col);
 
 // UTILS.C
 
