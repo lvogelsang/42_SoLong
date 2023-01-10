@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:12:48 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 11:58:12 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:23:14 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int
 {
 	int	i;
 
-	if (map_attributes->col && ((map_attributes->col != ft_strlen(line) - 1 && \
-		ft_strchr(line, '\n')) || (map_attributes->col != ft_strlen(line) && \
+	if (map_attributes->col && ((map_attributes->col != (int)ft_strlen(line) - 1 && \
+		ft_strchr(line, '\n')) || (map_attributes->col != (int)ft_strlen(line) && \
 		!(ft_strchr(line, '\n')))))
 		map_error->rectangle = 1;
 	if (line[0] != '1' || line[map_attributes->col - 1] != '1' || \

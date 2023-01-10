@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 12:33:20 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:59:36 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_game(char **map, t_map *map_attributes)
 
 	game.id = mlx_init();
 	game.window = mlx_new_window(game.id, map_attributes->col * SPRITE_SIZE, \
-	map_attributes->row * SPRITE_SIZE + 64, "SO_LONG - HARRY POTTER");
+	map_attributes->row * SPRITE_SIZE + 64, "SO_LONG");
 	game.sprites = init_sprites(&game);
 	game.fonts = init_fonts(&game);
 	game.frames = 1;
