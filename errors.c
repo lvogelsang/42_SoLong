@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:12:48 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 15:23:14 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:51:01 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int
 		i++;
 	}
 }
-//Reverse x and y to make it tidier:
+//Reverse x and y to make it tidier (call them row and col instead):
 void	*check_map_valid_path(char *map_str, t_map *map_attributes, t_error *map_error)
 {
 	char 	**map;

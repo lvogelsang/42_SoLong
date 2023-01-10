@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 13:59:36 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:51:39 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_game(char **map, t_map *map_attributes)
 	map_attributes->row * SPRITE_SIZE + 64, "SO_LONG");
 	game.sprites = init_sprites(&game);
 	game.fonts = init_fonts(&game);
-	game.frames = 1;
+	game.frames = 0;
 	game.collect = map_attributes->collect;
 	game.map = map;
 	game.map_attributes = map_attributes;
