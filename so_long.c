@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 16:28:56 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:33:20 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ void	init_game(char **map, t_map *map_attributes)
 
 	game.id = mlx_init();
 	game.window = mlx_new_window(game.id, map_attributes->col * SPRITE_SIZE, \
-	map_attributes->row * SPRITE_SIZE + 64, "HARRY POTTER - SO_LONG");
+	map_attributes->row * SPRITE_SIZE + 64, "SO_LONG - HARRY POTTER");
 	game.sprites = init_sprites(&game);
+	game.fonts = init_fonts(&game);
 	game.frames = 1;
 	game.collect = map_attributes->collect;
 	game.map = map;
 	game.map_attributes = map_attributes;
+	game.steps = 0;
+	game.panic = 0;
 	display_map(&game, game.map, game.map_attributes);
 	mlx_loop_hook(game.id, update_game, &game);
 	mlx_key_hook(game.window, key_hook, &game);
@@ -52,7 +55,7 @@ int	update_game(t_game *game)
 {
 	game->frames++;
 	check_game(game);
-	//	update_score(game);
+	update_score(game);
 	display_map(game, game->map, game->map_attributes);
 	return (1);
 }
@@ -96,7 +99,9 @@ int	key_hook(int key, t_game *game)
 
 int	end_game(t_game *game)
 {
-	// free sprites? Consider other things that need to be done!!!
+	// Consider other things that need to be done (and freed)!!!
+	free_sprites(game);
+	free_fonts(game);
 	mlx_clear_window(game->id, game->window);
 	mlx_destroy_window(game->id, game->window);
 	free (game->id);

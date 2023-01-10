@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:56 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 16:26:03 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:16:47 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ t_sprites	init_sprites(t_game *game)
 	game->sprites.c_five = mlx_xpm_file_to_image(game->id, "sprites/horcrux_nagini.xpm", &size, &size);
 	game->sprites.c_six = mlx_xpm_file_to_image(game->id, "sprites/horcrux_ring.xpm", &size, &size);
 	return (game->sprites);
+}
+
+t_font	init_fonts(t_game *game)
+{
+	int	size;
+
+	size = SPRITE_SIZE;
+	game->fonts.zero = mlx_xpm_file_to_image(game->id, "sprites/font_zero.xpm", &size, &size);
+	game->fonts.one = mlx_xpm_file_to_image(game->id, "sprites/font_one.xpm", &size, &size);
+	game->fonts.two = mlx_xpm_file_to_image(game->id, "sprites/font_two.xpm", &size, &size);
+	game->fonts.three = mlx_xpm_file_to_image(game->id, "sprites/font_three.xpm", &size, &size);
+	game->fonts.four = mlx_xpm_file_to_image(game->id, "sprites/font_four.xpm", &size, &size);
+	game->fonts.five = mlx_xpm_file_to_image(game->id, "sprites/font_five.xpm", &size, &size);
+	game->fonts.six = mlx_xpm_file_to_image(game->id, "sprites/font_six.xpm", &size, &size);
+	game->fonts.seven = mlx_xpm_file_to_image(game->id, "sprites/font_seven.xpm", &size, &size);
+	game->fonts.eight = mlx_xpm_file_to_image(game->id, "sprites/font_eight.xpm", &size, &size);
+	game->fonts.nine = mlx_xpm_file_to_image(game->id, "sprites/font_nine.xpm", &size, &size);
+	return (game->fonts);
 }
 
 void	display_map(t_game *game, char **map, t_map *map_attributes)
@@ -88,3 +106,32 @@ void	display_collectible(t_game *game, int row, int col)
 		mlx_put_image_to_window(game->id, game->window, game->sprites.c_six, col * SPRITE_SIZE, row * SPRITE_SIZE);
 }
 
+void	free_sprites(t_game *game)
+{
+	mlx_destroy_image(game->id, game->sprites.wall);
+	mlx_destroy_image(game->id, game->sprites.floor);
+	mlx_destroy_image(game->id, game->sprites.exit);
+	mlx_destroy_image(game->id, game->sprites.player);
+	mlx_destroy_image(game->id, game->sprites.enemy);
+	mlx_destroy_image(game->id, game->sprites.enemypanic);
+	mlx_destroy_image(game->id, game->sprites.c_one);
+	mlx_destroy_image(game->id, game->sprites.c_two);
+	mlx_destroy_image(game->id, game->sprites.c_three);
+	mlx_destroy_image(game->id, game->sprites.c_four);
+	mlx_destroy_image(game->id, game->sprites.c_five);
+	mlx_destroy_image(game->id, game->sprites.c_six);
+}
+
+void	free_fonts(t_game *game)
+{
+	mlx_destroy_image(game->id, game->fonts.zero);
+	mlx_destroy_image(game->id, game->fonts.one);
+	mlx_destroy_image(game->id, game->fonts.two);
+	mlx_destroy_image(game->id, game->fonts.three);
+	mlx_destroy_image(game->id, game->fonts.four);
+	mlx_destroy_image(game->id, game->fonts.five);
+	mlx_destroy_image(game->id, game->fonts.six);
+	mlx_destroy_image(game->id, game->fonts.seven);
+	mlx_destroy_image(game->id, game->fonts.eight);
+	mlx_destroy_image(game->id, game->fonts.nine);
+}

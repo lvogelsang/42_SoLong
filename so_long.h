@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 16:00:50 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:19:45 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,27 @@ typedef struct	s_sprites
 	void	*c_six;
 }		t_sprites;
 
+typedef struct	s_font
+{
+	void	*zero;
+	void	*one;
+	void	*two;
+	void	*three;
+	void	*four;
+	void	*five;
+	void	*six;
+	void	*seven;
+	void	*eight;
+	void	*nine;
+}				t_font;
+
+
 typedef struct	s_game
 {
 	void	*id;
 	void	*window;
 	t_sprites	sprites;
+	t_font	fonts;
 	int	frames;
 	int	collect;
 	char	**map;
@@ -109,14 +125,23 @@ t_sprites	init_sprites(t_game *game);
 void	display_map(t_game *game, char **map, t_map *map_attributes);
 void	display_player(t_game *game, int row, int col);
 void	display_collectible(t_game *game, int row, int col);
+void	free_sprites(t_game *game);
+void	free_fonts(t_game *game);
 
 // PLAYER.C
 
 int	move_player(t_game *game, int row, int col);
 
+// SCORE.C
+
+void	update_score(t_game *game);
+void	display_font(t_game *game, int digit, int i);
+
 // UTILS.C
 
 int	ft_strrncmp(const char *s1, const char *s2, size_t n);
 int	ft_countchar(char *str, int c);
+
+t_font	init_fonts(t_game *game);
 
 #endif
