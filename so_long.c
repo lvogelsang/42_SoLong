@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 15:51:39 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:10:17 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_game(t_game *game)
 	if (game->collect / 2 > game->map_attributes->collect && !(game->panic))
 		game->panic = 1;
 }
-
+// Don't need .move.
 int	key_hook(int key, t_game *game)
 {
 	int	move;
@@ -109,4 +109,3 @@ int	end_game(t_game *game)
 	exit (0);
 	return (0);
 }
-

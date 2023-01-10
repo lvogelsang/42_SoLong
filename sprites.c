@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:31:56 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 15:52:39 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:02:48 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	display_map(t_game *game, char **map, t_map *map_attributes)
 	}
 	x++;
 }	
-
+// Incorporate this into the rest of the code:
 void	display_player(t_game *game, int row, int col)
 {
 	mlx_put_image_to_window(game->id, game->window, game->sprites.player, col * SPRITE_SIZE, row * SPRITE_SIZE);
