@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/11 13:59:02 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 10:11:10 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 //Here is where we initiate the game, set up the basic game features, and start
 //running the game using mlx functions.
 
+//The 'hook' function of the mlx recognises events/messages, such as key
+//strokes, to then modify an application, such as moving a player in a game.
+//The 'loop hook' function is continuously called and in our case, has the
+//purpose of redrawing our game and to execute animations that are 
+//frame-dependant.
+//
 void	init_game(char **map, t_map *map_attributes)
 {
 	t_game	game;
@@ -25,6 +31,7 @@ void	init_game(char **map, t_map *map_attributes)
 	game.frames = 0;
 	game.steps = 0;
 	game.panic = 0;
+	game.result = 0;
 	game.id = mlx_init();
 	game.window = mlx_new_window(game.id, map_attributes->col * SPRITE_SIZE, \
 	map_attributes->row * SPRITE_SIZE + 64, "SO_LONG");
