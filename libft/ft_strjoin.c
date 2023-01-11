@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 10:42:34 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/09 10:04:32 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:03:21 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;
 	char	*concat;
-	
+
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	if (s1 == NULL)

@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 13:57:26 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:01:47 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
 
-typedef struct	s_map
+typedef struct s_map
 {
 	int	row;
 	int	col;
@@ -36,7 +36,7 @@ typedef struct	s_map
 	int	collect;
 }		t_map;
 
-typedef struct	s_error
+typedef struct s_error
 {
 	int	rectangle;
 	int	closed;
@@ -45,7 +45,7 @@ typedef struct	s_error
 	int	memory;
 }		t_error;
 
-typedef struct	s_sprites
+typedef struct s_sprites
 {
 	void	*wall;
 	void	*floor;
@@ -61,7 +61,7 @@ typedef struct	s_sprites
 	void	*c_six;
 }		t_sprites;
 
-typedef struct	s_font
+typedef struct s_font
 {
 	void	*zero;
 	void	*one;
@@ -73,75 +73,79 @@ typedef struct	s_font
 	void	*seven;
 	void	*eight;
 	void	*nine;
-}				t_font;
+}		t_font;
 
-
-typedef struct	s_game
+typedef struct s_game
 {
-	void	*id;
-	void	*window;
+	void		*id;
+	void		*window;
+	char		**map;
+	int			frames;
+	int			collect;
+	int			player_row;
+	int			player_col;
+	int			panic;
+	int			result;
+	int			steps;
+	t_map		*map_attributes;
 	t_sprites	sprites;
-	t_font	fonts;
-	int	frames;
-	int	collect;
-	char	**map;
-	t_map	*map_attributes;
-	int	player_row;
-	int	player_col;
-	int	panic;
-	int	move;
-	int	result;
-	int	steps;
+	t_font		fonts;
 }		t_game;
 
 // SO_LONG.C
 
 void	init_game(char **map, t_map *map_attributes);
-int	key_hook(int key, t_game *game);
-int	end_game(t_game *game);
-void	check_game(t_game *game);
-int	update_game(t_game *game);
+int		update_game(t_game *game);
+int		key_hook(int key, t_game *game);
+void	*move_player(t_game *game, int row, int col);
+int		end_game(t_game *game);
 
 // ERRORS.C
 
-int	error_message(char *message, char *map_str);
-int	primitive_errors(int argc, char **argv);
+int		error_message(char *message, char *map_str);
+int		primitive_errors(int argc, char **argv);
 t_error	init_map_error(void);
-void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int first_or_last);
-void	*check_map_valid_path(char *map_str, t_map *map_attributes, t_error *map_error);
-void	check_map_valid_path_two(char **map, t_error *map_error);
-int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str);
+void	check_map_errors(char *line, t_map *map_attributes, \
+t_error *map_error, int first_or_last);
+void	*check_map_valid_path(char *map_str, t_map *map_attributes, \
+t_error *map_error);
+int		check_map_valid_path_two(char **map, \
+t_map *map_attributes, int col, int row);
+int		print_map_errors(t_error *map_error, \
+t_map *map_attributes, char *map_str);
 
 // MAP.C
 
-t_map init_map_attributes(void);
+t_map	init_map_attributes(void);
 char	**check_map(int fd, t_map *map_attributes);
-void	*read_map(int fd, t_map *map_attributes, char **map_str, t_error *map_error);
-void	get_map_attributes(char *line, t_map *map_attributes, t_error *map_error, int first_or_last);
+void	read_map(int fd, t_map *map_attributes, char **map_str, \
+t_error *map_error);
+void	read_map_two(t_map *map_attributes, t_error *map_error, \
+char *prev_line);
+void	get_map_attributes(char *line, t_map *map_attributes, \
+t_error *map_error, int first_or_last);
 
 // SPRITES.C
 
-t_sprites	init_sprites(t_game *game);
-void	display_map(t_game *game, char **map, t_map *map_attributes);
-void	display_player(t_game *game, int row, int col);
-void	display_collectible(t_game *game, int row, int col);
+void	init_sprites(t_game *game);
+void	init_sprites_two(t_game *game, int size);
+void	init_fonts(t_game *game);
 void	free_sprites(t_game *game);
 void	free_fonts(t_game *game);
 
-// PLAYER.C
+// DISPLAY.C
 
-int	move_player(t_game *game, int row, int col);
-
-// SCORE.C
-
-void	update_score(t_game *game);
-void	display_font(t_game *game, int digit, int i);
+void	display_map(t_game *game, char **map, t_map *map_attributes);
+void	display_map_two(t_game *game, char **map, int row, int col);
+void	display_player(t_game *game, int row, int col);
+void	display_enemy(t_game *game, int x, int row, int col);
+void	display_collectible(t_game *game, int row, int col);
+void	display_score(t_game *game);
+void	display_score_two(t_game *game, int digit, int i);
 
 // UTILS.C
 
-int	ft_strrncmp(const char *s1, const char *s2, size_t n);
-int	ft_countchar(char *str, int c);
-
-t_font	init_fonts(t_game *game);
+int		ft_strrncmp(const char *s1, const char *s2, size_t n);
+int		ft_countchar(char *str, int c);
 
 #endif

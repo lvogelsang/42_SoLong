@@ -6,7 +6,7 @@
 #    By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/10 14:58:40 by lvogelsa          #+#    #+#              #
-#    Updated: 2023/01/10 15:39:19 by lvogelsa         ###   ########.fr        #
+#    Updated: 2023/01/11 13:54:17 by lvogelsa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRCS = errors.c map.c player.c score.c so_long.c sprites.c utils.c
+SRCS = display.c errors.c main.c map.c so_long.c sprites.c utils.c
 
 MLX_PATH = ./mlx
 MLX = $(MLX_PATH)/libmlx.a

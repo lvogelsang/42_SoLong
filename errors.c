@@ -6,11 +6,13 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:12:48 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/10 15:51:01 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:16:19 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+// Error message function.
 
 int	error_message(char *message, char *map_str)
 {
@@ -20,6 +22,8 @@ int	error_message(char *message, char *map_str)
 	exit (0);
 	return (-1);
 }
+
+// This function checks for any primitive errors, such as an invalid file type.
 
 int	primitive_errors(int argc, char **argv)
 {
@@ -34,7 +38,9 @@ int	primitive_errors(int argc, char **argv)
 		return (error_message("Invalid file type!", NULL));
 	return (fd);
 }
-//
+
+// Here we initiate a struct that stores every potential error of the map.
+
 t_error	init_map_error(void)
 {
 	t_error	map_error;
@@ -46,14 +52,19 @@ t_error	init_map_error(void)
 	map_error.memory = 0;
 	return (map_error);
 }
-//
-void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int first_or_last)
+
+// This function tests the map for errors, including whether it is rectangular, 
+// surrounded by walls, or if it contains any invalid characters.
+
+void	check_map_errors(char *line, t_map *map_attributes, \
+t_error *map_error, int first_or_last)
 {
 	int	i;
 
-	if (map_attributes->col && ((map_attributes->col != (int)ft_strlen(line) - 1 && \
-		ft_strchr(line, '\n')) || (map_attributes->col != (int)ft_strlen(line) && \
-		!(ft_strchr(line, '\n')))))
+	if (map_attributes->col && ((map_attributes->col != \
+		(int)ft_strlen(line) - 1 && ft_strchr(line, '\n')) || \
+		(map_attributes->col != (int)ft_strlen(line) \
+		&& !(ft_strchr(line, '\n')))))
 		map_error->rectangle = 1;
 	if (line[0] != '1' || line[map_attributes->col - 1] != '1' || \
 		(first_or_last && ft_countchar(line, '1') != map_attributes->col))
@@ -66,68 +77,66 @@ void	check_map_errors(char *line, t_map *map_attributes, t_error *map_error, int
 		i++;
 	}
 }
-//Reverse x and y to make it tidier (call them row and col instead):
-void	*check_map_valid_path(char *map_str, t_map *map_attributes, t_error *map_error)
+
+//This function checks whether a valid path exists in the map, i.e., the
+//player must be able to reach every collectible and the exit. If a player 
+//can reach a specific spot on the map, I fill it with a 'P'. If there are 
+//still 'C's or an 'E' left at the end, then the map is invalid.
+
+void	*check_map_valid_path(char *map_str, t_map *map_attributes, \
+t_error *map_error)
 {
-	char 	**map;
-	int	x;
-	int	y;
-	
+	char	**map;
+	int		col;
+	int		row;
+
 	map = ft_split(map_str, '\n');
 	if (map == NULL)
 	{
 		map_error->memory = 1;
 		return (NULL);
 	}
-	x = 1;
-	while (x < map_attributes->col - 1)
+	col = 1;
+	while (col < map_attributes->col - 1)
+		col = check_map_valid_path_two(map, map_attributes, col, 1);
+	row = 0;
+	while (row < map_attributes->row)
 	{
-		y = 1;
-		while (y < map_attributes->row - 1)
-		{
-			if (map[y][x + 1] == 'P' || map[y][x - 1] == 'P' \
-				|| map[y + 1][x] == 'P' || map[y - 1][x] == 'P')
-			{
-				if (map[y][x] == '0' || map[y][x] == 'C')
-				{
-					map[y][x] = 'P';
-					x = 0;
-					break ;
-				}
-				if (map[y][x] == 'E')
-				{
-					map[y][x] = '1';
-					x = 0;
-					break ;
-				}
-			}
-			y++;
-		}
-		x++;
+		map_error->path += ft_countchar(&map[row][0], 'C');
+		map_error->path += ft_countchar(&map[row][0], 'E');
+		row++;
 	}
-	check_map_valid_path_two(map, map_error);
 	free (map);
 	return (NULL);
 }
 
-void	check_map_valid_path_two(char **map, t_error *map_error)
+int	check_map_valid_path_two(char **map, t_map *map_attributes, \
+int col, int row)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	while (map[x])
+	while (row < map_attributes->row - 1)
 	{
-		y = 0;
-		while (map[x][y])
+		if (map[row][col + 1] == 'P' || map[row][col - 1] == 'P' \
+			|| map[row + 1][col] == 'P' || map[row - 1][col] == 'P')
 		{
-			if (map[x][y] == 'C' || map[x][y] == 'E')
-				map_error->path = 1;
-			y++;
+			if (map[row][col] == '0' || map[row][col] == 'C')
+			{
+				map[row][col] = 'P';
+				return (0);
+			}
+			if (map[row][col] == 'E')
+			{
+				map[row][col] = '1';
+				return (0);
+			}
 		}
-		x++;
+		row++;
 	}
+	col++;
+	return (col);
 }
+
+// This function goes through the map attributes and prints a specific error 
+// message to the terminal if an error has occured..
 
 int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str)
 {
@@ -146,7 +155,7 @@ int	print_map_errors(t_error *map_error, t_map *map_attributes, char *map_str)
 	if (map_attributes->player != 1)
 		return (error_message("Invalid number of players!", map_str));
 	if (map_error->path)
-		return (error_message("The map doesn't contain a valid path!", map_str));
+		return (error_message("There is no valid path!", map_str));
 	if (map_error->memory)
 		return (error_message("Memory allocation problems!", map_str));
 	return (0);
