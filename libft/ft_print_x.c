@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:20:46 by lvogelsa          #+#    #+#             */
-/*   Updated: 2022/10/21 09:38:16 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:04:35 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ char	*ft_str_x_2(t_format format, unsigned int x)
 	char	*prefix;
 	char	*temp;
 	char	*x_str;
-
+	
+	prefix = NULL;
 	if (format.type == 'x')
 		hex_base = "0123456789abcdef";
 	else if (format.type == 'X')
