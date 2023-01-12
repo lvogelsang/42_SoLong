@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:12:48 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/12 11:31:18 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:56:27 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,7 @@ t_error *map_error)
 		map_error->path += ft_countchar(&map[row][0], 'E');
 		row++;
 	}
-	////
-	int	i = 0;
-	while (map[i])
-	{
-		free (map[i]);
-		i++;
-	}
-	////
-	free (map);
+	ft_free_map(map);
 	return (NULL);
 }
 

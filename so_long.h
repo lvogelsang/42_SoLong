@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:55:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/12 11:17:17 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:57:02 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,7 @@ void	display_score_two(t_game *game, int digit, int i);
 
 int		ft_strrncmp(const char *s1, const char *s2, size_t n);
 int		ft_countchar(char *str, int c);
+char	*ft_strjoin_sl(char *s1, char *s2);
+void	ft_free_map(char **map);
 
 #endif

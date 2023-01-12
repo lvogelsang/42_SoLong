@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:21:19 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/12 11:37:16 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:49:28 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_error *map_error)
 		get_map_attributes(line, map_attributes, map_error, \
 		!(map_attributes->row));
 		prev_line = ft_substr(line, 0, ft_strlen(line));
-		*map_str = ft_strjoin(*map_str, line);
+		*map_str = ft_strjoin_sl(*map_str, line);
 		if (*map_str == NULL)
 			map_error->memory = 1;
 		map_attributes->row++;

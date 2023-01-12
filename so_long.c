@@ -6,7 +6,7 @@
 /*   By: lvogelsa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 08:58:59 by lvogelsa          #+#    #+#             */
-/*   Updated: 2023/01/12 11:34:46 by lvogelsa         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:56:46 by lvogelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,7 @@ int	end_game(t_game *game)
 	mlx_clear_window(game->id, game->window);
 	mlx_destroy_window(game->id, game->window);
 	free (game->id);
-	//
-	int	i = 0;
-	while (game->map[i])
-	{
-
-		free (game->map[i]);
-		i++;
-	}
-	free (game->map);
+	ft_free_map(game->map);
 	exit (0);
 	return (0);
 }
